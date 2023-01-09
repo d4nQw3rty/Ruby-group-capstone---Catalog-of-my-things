@@ -6,7 +6,12 @@ class Item
     @id = id
     @published_date = published_date
     @archived = archived
+    @label = nil
   end
+
+  attr_reader :id, :name, :published_date, :archived
+
+  attr_accessor :label
 
   def can_be_archived?
     difference = Date.today - DateTime.parse(@published_date)
@@ -15,5 +20,10 @@ class Item
 
   def move_to_archive
     @archived = true if can_be_archived?
+  end
+
+  def add_label(label)
+    @classroom = classroom
+    label.items.push(self) unless label.items.include?(self)
   end
 end
