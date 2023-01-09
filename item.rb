@@ -19,7 +19,3 @@ class Item
     end
   end
 end
-
-item = Item.new('name', '8-01-2013')
-
-puts item.can_be_archived?
