@@ -3,7 +3,7 @@ require_relative 'app'
 class Main
   def initialize
     @app = App.new
-    @welcome = "Welcome to the Catalogue App!"
+    @welcome = 'Welcome to the Catalogue App!'
   end
 
   def interface
@@ -26,25 +26,21 @@ class Main
 
   def select
     option = gets.chomp
+    puts ''
     case option
     when '0'
-      puts ''
       @app.list_books
       run
     when '4'
-      puts ''
       @app.add_label('TestLabel', 'blue')
       @app.list_labels
       run
     when '6'
-      puts ''
       @app.add_book
       run
     when '9'
-      puts ''
       puts 'Thank you for using this App!'
     else
-      puts ''
       puts 'Incorrect Input: Option does not exist'
       run
     end

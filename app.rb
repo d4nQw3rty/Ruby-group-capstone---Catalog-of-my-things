@@ -22,10 +22,6 @@ class App
   def add_book
     print 'Title: '
     title = gets.chomp
-    print 'Author: '
-    author = gets.chomp
-    print 'Genre: '
-    genre = gets.chomp
     print 'Publisher: '
     publisher = gets.chomp
     print 'Published date(YYYY-MM-DD): '
