@@ -9,8 +9,8 @@ class Item
   end
 
   def can_be_archived?
-    puts difference = Date.today - DateTime.parse(@published_date)
-    puts difference.to_i >= 3652
+    difference = Date.today - DateTime.parse(@published_date)
+    return difference.to_i > 3652
   end
 
   def move_to_archive
@@ -20,6 +20,6 @@ class Item
   end
 end
 
-item = Item.new('name', '12-01-2013')
+item = Item.new('name', '8-01-2013')
 
 puts item.can_be_archived?
