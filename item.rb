@@ -10,12 +10,10 @@ class Item
 
   def can_be_archived?
     difference = Date.today - DateTime.parse(@published_date)
-    return difference.to_i > 3652
+    difference.to_i > 3652
   end
 
   def move_to_archive
-    if can_be_archived? 
-      @archived = true
-    end
+    @archived = true if can_be_archived?
   end
 end
