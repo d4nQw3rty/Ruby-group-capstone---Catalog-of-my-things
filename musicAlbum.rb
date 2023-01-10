@@ -1,4 +1,4 @@
-require './item'
+require_relative 'item'
 
 class MusicAlbum < Item
   attr_reader :on_spotify
@@ -9,12 +9,6 @@ class MusicAlbum < Item
   end
 
   def can_be_archived?
-    if @on_spotify == true && super == true
-      true
-    else
-      false
-    end
+    @on_spotify == true && super == true
   end
 end
-# album = MusicAlbum.new('name', '2000-01-01', on_spotify: true)
-# puts album.can_be_archived?

@@ -1,5 +1,5 @@
 require 'rspec'
-require_relative '../music_Album'
+require_relative '../musicalbum'
 
 describe '#initialize' do
   it 'Check whether a song is on spotify' do
