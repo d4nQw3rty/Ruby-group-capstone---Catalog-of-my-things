@@ -6,8 +6,7 @@ class Item
     @published_date = published_date
     @archived = archived
     @author = nil
-    @label = nil
-    @author = nil
+    @label = nil    
   end
 
   attr_reader :id, :name, :published_date, :archived
