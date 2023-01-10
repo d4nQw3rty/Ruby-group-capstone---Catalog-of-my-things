@@ -5,6 +5,7 @@ class Item
     @id = id
     @published_date = published_date
     @archived = archived
+    @author = nil
   end
 
   def can_be_archived?
@@ -14,5 +15,9 @@ class Item
 
   def move_to_archive
     @archived = true if can_be_archived?
+  end
+
+  def add_author(author)
+    author.items.push(self) unless author.items.include?(self)
   end
 end
