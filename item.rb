@@ -6,6 +6,7 @@ class Item
     @published_date = published_date
     @archived = archived
     @label = nil
+    @author = nil
   end
 
   attr_reader :id, :name, :published_date, :archived
@@ -24,5 +25,9 @@ class Item
   def add_label(label)
     @classroom = classroom
     label.items.push(self) unless label.items.include?(self)
+  end
+
+  def add_author(author)
+    author.items.push(self) unless author.items.include?(self)
   end
 end
