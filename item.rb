@@ -1,5 +1,4 @@
 require 'date'
-
 class Item
   def initialize(name, published_date, id: Random.rand(1..1000), archived: false)
     @name = name
