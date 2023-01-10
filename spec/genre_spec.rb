@@ -1,6 +1,6 @@
-require_relative 'rspec'
+require 'rspec'
 require_relative '../genre'
-require_relative '../musicAlbum'
+require_relative '../music_Album'
 
 describe Genre do
   it 'creates a song using the provided data' do
