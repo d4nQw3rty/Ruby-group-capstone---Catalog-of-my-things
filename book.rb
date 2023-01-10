@@ -1,8 +1,10 @@
 require_relative 'item'
 
 class Book < Item
-  def initialize(name, publisher, cover_state, published_date)
-    super(name, published_date)
+  # rubocop:disable Metrics/ParameterLists
+  def initialize(name, publisher, cover_state, published_date, id: Random.rand(1..1000), archived: false)
+    # rubocop:enable Metrics/ParameterLists
+    super(name, published_date, id: id, archived: archived)
     @publisher = publisher
     @cover_state = cover_state
   end

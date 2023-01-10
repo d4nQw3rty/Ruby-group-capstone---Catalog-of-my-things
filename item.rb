@@ -23,7 +23,9 @@ class Item
   end
 
   def add_label(label)
-    @classroom = classroom
+    @label = label
+    return if label.nil?
+
     label.items.push(self) unless label.items.include?(self)
   end
 end
