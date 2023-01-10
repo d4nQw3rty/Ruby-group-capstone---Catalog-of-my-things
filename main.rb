@@ -32,13 +32,13 @@ class Main
       @app.list_books
       run
     when '4'
-      @app.add_label('TestLabel', 'blue')
       @app.list_labels
       run
     when '6'
       @app.add_book
       run
     when '9'
+      @app.save_data
       puts 'Thank you for using this App!'
     else
       puts 'Incorrect Input: Option does not exist'
@@ -47,6 +47,7 @@ class Main
   end
 
   def start
+    @app.load_data
     run
   end
 

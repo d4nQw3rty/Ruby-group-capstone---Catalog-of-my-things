@@ -1,5 +1,8 @@
 require_relative 'book'
 require_relative 'label'
+require_relative 'booksdata'
+require_relative 'labelhandler'
+require_relative 'labelsdata'
 
 class App
   def initialize
@@ -7,15 +10,36 @@ class App
     @labellist = []
   end
 
+  include BooksData
+  include LabelHandler
+  include LabelsData
+
+  def load_data
+    load_labels
+    load_books
+  end
+
+  def save_data
+    save_books
+    save_labels
+  end
+
   def list_books
     @booklist.each_with_index do |book, index|
-      puts "#{index}) Title: \"#{book.name}\", Author: {book.author}"
+      label = if book.label.nil?
+                'none'
+              else
+                book.label.title
+              end
+      # rubocop:disable Layout/LineLength
+      puts "#{index}) Title: \"#{book.name}\", Label: #{label}, Publisher: #{book.publisher}, Date of Publication: #{book.published_date}, State of the cover: #{book.cover_state}, Archived: #{book.archived}"
+      # rubocop:enable Layout/LineLength
     end
   end
 
   def list_labels
-    @labellist.each do |label|
-      puts "Title: \"#{label.title}\", Color: #{label.color}"
+    @labellist.each_with_index do |label, index|
+      puts "#{index + 1}) Title: \"#{label.title}\", Color: #{label.color}, Items: #{label.items.length}"
     end
   end
 
@@ -38,11 +62,16 @@ class App
     end
     newbook = Book.new(title, publisher, cover, published_date)
     @booklist.push(newbook)
-    puts 'Book added successfully'
+    label_handler(newbook)
   end
 
-  def add_label(title, color)
+  def create_label
+    puts 'Insert Label Title: '
+    title = gets.chomp
+    puts 'Insert Label Color: '
+    color = gets.chomp
     label = Label.new(title, color)
     @labellist.push(label)
+    label
   end
 end
