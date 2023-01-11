@@ -20,8 +20,11 @@ module MusicData
     @musiclist.each do |music|
       next if list_id.include?(music.id)
 
+      label = music.label.id || nil
+      author = music.author.id || nil
       genre = music.genre.id || nil
-      array.push({ name: music.name, published_date: music.published_date, Archived: music.archived, genre: genre })
+      array.push({ name: music.name, published_date: music.published_date, Archived: music.archived, 
+                   genre: genre, author: author, label: label })
     end
     write_json(array, './JSON_data/music_album.json')
   end
@@ -29,10 +32,14 @@ module MusicData
   def load_musicalbums
     parse_file = read_json('./JSON_data/music_album.json')
     parse_file.each do |music|
+      correctlabel = @labellist.find { |label| label.id == music['label'] }
+      correctauthor = @authorlist.find { |author| author.id == music['author'] }
       correctgenre = @genrelist.find { |genre| genre.id == music['genre'] }
       loadedmusic = MusicAlbum.new(music['name'], music['publish_date'], id: music['id'], archived: music['archived'])
       @musiclist.push(loadedmusic)
       loadedmusic.add_genre(correctgenre)
+      loadedmusic.add_label(correctlabel)
+      loadedmusic.add_author(correctauthor)
     end
   end
 end

@@ -14,7 +14,7 @@ require_relative 'gamesdata'
 require_relative 'authordata'
 require_relative 'authorhandler'
 
-
+# rubocop:disable Metrics/ClassLength
 class App
   def initialize
     @booklist = []
@@ -105,8 +105,8 @@ class App
               else
                 music.genre.name
               end
-      puts "#{index}) Name: \"#{music.name}\", Genre: #{genre},"\
-            "Publish Date: #{music.published_date}, Archived: #{music.archived}"
+      puts "#{index}) Name: \"#{music.name}\", Genre: #{genre}," \
+           "Publish Date: #{music.published_date}, Archived: #{music.archived}"
     end
   end
 
@@ -141,7 +141,7 @@ class App
       puts "#{index + 1}) Name: #{author.first_name} #{author.last_name}, Items: #{author.items.length}"
     end
   end
-  
+
   def add_book
     print 'Title: '
     title = gets.chomp
@@ -160,6 +160,7 @@ class App
     @booklist.push(newbook)
     author_handler(newbook)
     label_handler(newbook)
+    genre_handler(newbook)
     puts 'Book added successfully'
   end
 
@@ -170,6 +171,7 @@ class App
     color = gets.chomp
     label = Label.new(title, color)
     @labellist.push(label)
+    label
   end
 
   def add_game
@@ -186,6 +188,7 @@ class App
     @gamelist.push(newgame)
     author_handler(newgame)
     label_handler(newgame)
+    genre_handler(newgame)
     puts 'Game added successfully'
   end
 
@@ -196,6 +199,7 @@ class App
     last_name = gets.chomp
     author = Author.new(first_name, last_name)
     @authorlist.push(author)
+    author
   end
 
   def add_musicalbum
@@ -208,6 +212,10 @@ class App
     on_spotify = on_spotify.downcase == 'y'
     newsong = MusicAlbum.new(name, published_date, on_spotify: on_spotify)
     @musiclist.push(newsong)
+    author_handler(newsong)
+    label_handler(newsong)
     genre_handler(newsong)
+    puts 'Music Album added successfully'
   end
 end
+# rubocop:enable Metrics/ClassLength

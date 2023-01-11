@@ -22,8 +22,10 @@ module BooksData
 
       label = book.label.id || nil
       author = book.author.id || nil
+      genre = book.genre.id || nil
       array.push({ name: book.name, publisher: book.publisher, cover_state: book.cover_state, label: label,
-                   published_date: book.published_date, author: author, id: book.id, archived: book.archived })
+                   published_date: book.published_date, genre: genre,
+                   author: author, id: book.id, archived: book.archived })
     end
     write_json(array, './JSON_data/books.json')
   end
@@ -33,11 +35,13 @@ module BooksData
     parse_file.each do |book|
       correctlabel = @labellist.find { |label| label.id == book['label'] }
       correctauthor = @authorlist.find { |author| author.id == book['author'] }
+      correctgenre = @genrelist.find { |genre| genre.id == book['genre']}
       loadedbook = Book.new(book['name'], book['publisher'], book['cover_state'], book['published_date'],
                             id: book['id'], archived: book['archived'])
       @booklist.push(loadedbook)
       loadedbook.add_label(correctlabel)
       loadedbook.add_author(correctauthor)
+      loadedbook.add_genre(correctgenre)
     end
   end
 end

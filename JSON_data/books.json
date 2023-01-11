@@ -1,3 +1,23 @@
 [
-
+  {
+    "name": "title",
+    "publisher": "publisher",
+    "cover_state": "good",
+    "label": 23,
+    "published_date": "2000-01-01",
+    "author": 799,
+    "id": 789,
+    "archived": false
+  },
+  {
+    "name": "dfsffds",
+    "publisher": "fdfdfads",
+    "cover_state": "good",
+    "label": 694,
+    "published_date": "2000-01-01",
+    "genre": 658,
+    "author": 38,
+    "id": 275,
+    "archived": false
+  }
 ]
