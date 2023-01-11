@@ -1,27 +1,41 @@
 require_relative 'book'
 require_relative 'label'
+require_relative 'musicalbum'
+require_relative 'genre'
+require_relative 'genresdata'
 require_relative 'booksdata'
 require_relative 'labelhandler'
 require_relative 'labelsdata'
+require_relative 'genrehandler'
+require_relative 'musicdata'
 
 class App
   def initialize
     @booklist = []
     @labellist = []
+    @musiclist = []
+    @genrelist = []
   end
 
   include BooksData
   include LabelHandler
   include LabelsData
+  include GenreHandler
+  include GenresData
+  include MusicData
 
   def load_data
     load_labels
     load_books
+    load_musicalbums
+    load_genres
   end
 
   def save_data
     save_books
     save_labels
+    save_music
+    save_genres
   end
 
   def list_books
@@ -41,6 +55,32 @@ class App
     @labellist.each_with_index do |label, index|
       puts "#{index + 1}) Title: \"#{label.title}\", Color: #{label.color}, Items: #{label.items.length}"
     end
+  end
+
+  def list_musicalbums
+    @musiclist.each_with_index do |music, index|
+      genre = if music.genre.nil?
+                'none'
+              else
+                music.genre.name
+              end
+      puts "#{index}) Name: \"#{music.name}\", Genre: #{genre},"\
+            "Publish Date: #{music.published_date}, Archived: #{music.archived}"
+    end
+  end
+
+  def list_genres
+    @genrelist.each_with_index do |genre, index|
+      puts "#{index + 1}) Name: \"#{genre.name}\", Items: #{genre.items.length}"
+    end
+  end
+
+  def create_genre
+    puts 'Insert Label Name: '
+    name = gets.chomp
+    genre = Genre.new(name)
+    @genrelist.push(genre)
+    genre
   end
 
   def add_book
@@ -73,5 +113,18 @@ class App
     label = Label.new(title, color)
     @labellist.push(label)
     label
+  end
+
+  def add_musicalbum
+    print 'Name:'
+    name = gets.chomp
+    print 'Publish date(YYYY-MM-DD):'
+    published_date = gets.chomp
+    print 'Is it on sportify: (Y/N)'
+    on_spotify = gets.chomp
+    on_spotify = on_spotify.downcase == 'y'
+    newsong = MusicAlbum.new(name, published_date, on_spotify: on_spotify)
+    @musiclist.push(newsong)
+    genre_handler(newsong)
   end
 end

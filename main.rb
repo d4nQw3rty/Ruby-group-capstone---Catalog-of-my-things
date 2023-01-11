@@ -35,7 +35,7 @@ class Main
       @app.list_labels
       run
     when '1'
-      @app.list_musicAlbums
+      @app.list_musicalbums
       run
     when '3'
       @app.list_genres
@@ -44,7 +44,7 @@ class Main
       @app.add_book
       run
     when '7'
-      @app.add_musicAlbum
+      @app.add_musicalbum
       run
     when '9'
       @app.save_data
