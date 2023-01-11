@@ -19,10 +19,11 @@ module BooksData
     array.each { |book| list_id.push(book['id']) }
     @booklist.each do |book|
       next if list_id.include?(book.id)
+
       label = book.label.id || nil
       author = book.author.id || nil
       array.push({ name: book.name, publisher: book.publisher, cover_state: book.cover_state, label: label,
-            published_date: book.published_date, author: author, id: book.id, archived: book.archived })
+                   published_date: book.published_date, author: author, id: book.id, archived: book.archived })
     end
     write_json(array, './JSON_data/books.json')
   end

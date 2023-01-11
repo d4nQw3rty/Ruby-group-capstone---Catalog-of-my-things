@@ -20,15 +20,15 @@ class App
   include BooksData
   include LabelHandler
   include LabelsData
-  include AuthorHandler 
+  include AuthorHandler
   include AuthorsData
-  include GamesData  
+  include GamesData
 
   def load_data
     load_labels
-    load_books
     load_authors
-    load_games    
+    load_books
+    load_games
   end
 
   def save_data
@@ -60,22 +60,20 @@ class App
     when '3'
       list_genres
     when '4'
-      list_authors
-    when '5'
       list_labels
+    when '5'
+      list_authors
     end
   end
 
   def list_books
     @booklist.each_with_index do |book, index|
-      label = if book.label.nil?
-                'none'
-              else
-                book.label.title
-              end
-      # rubocop:disable Layout/LineLength
-      puts "#{index}) Title: \"#{book.name}\", Label: #{label}, Publisher: #{book.publisher}, Date of Publication: #{book.published_date}, State of the cover: #{book.cover_state}, Archived: #{book.archived}"
-      # rubocop:enable Layout/LineLength
+      label = book.label.title || 'None'
+      firstname = book.author.first_name || 'Unknown'
+      lastname = book.author.last_name || ''
+      puts "#{index}) Title: \"#{book.name}\", Author: #{firstname} #{lastname}, Label: #{label}, " \
+           "Published: #{book.published_date}, Publisher: #{book.publisher}, " \
+           "State of the cover: #{book.cover_state.capitalize}"
     end
   end
 
@@ -87,14 +85,19 @@ class App
 
   def list_games
     @gamelist.each_with_index do |game, index|
-      puts "#{index + 1}) Title: \"#{game.name}\", Published: #{game.published_date}, " \
-           "Multiplayer: #{game.multiplayer}, Last Date: #{game.last_played_date}"
+      label = game.label.title || 'None'
+      firstname = game.author.first_name || 'Unknown'
+      lastname = game.author.last_name || ''
+      multiplayer = game.multiplayer ? 'Yes' : 'No'
+      puts "#{index + 1}) Title: \"#{game.name}, Author: #{firstname} #{lastname}, " \
+           "Label: #{label}, Published: #{game.published_date}, " \
+           "Multiplayer: #{multiplayer}, Last Played: #{game.last_played_date}"
     end
   end
 
   def list_authors
     @authorlist.each_with_index do |author, index|
-      puts "#{index + 1}) First Name: \"#{author.first_name}\", Last Mame: #{author.last_name}, Items: #{author.items.length}"
+      puts "#{index + 1}) Name: #{author.first_name} #{author.last_name}, Items: #{author.items.length}"
     end
   end
 
@@ -107,14 +110,11 @@ class App
     published_date = gets.chomp
     print 'What is the state of the cover? Answer with 1(good) or 2(bad)? '
     state = gets.chomp
-    case state
-    when '1'
-      cover = 'good'
-    when '2'
-      cover = 'bad'
-    else
-      puts 'Incorrect Input: Option does not exist'
-    end
+    cover = if state == '1'
+              'good'
+            else
+              'bad'
+            end
     newbook = Book.new(title, publisher, cover, published_date)
     @booklist.push(newbook)
     author_handler(newbook)
@@ -130,7 +130,7 @@ class App
     label = Label.new(title, color)
     @labellist.push(label)
     label
-  end 
+  end
 
   def add_game
     print 'Game Title: '
@@ -139,17 +139,9 @@ class App
     published_date = gets.chomp
     print 'is a multiplayer game? Answer with 1(yes) or 2(no)? '
     multiplayer = gets.chomp
-    case multiplayer
-    when '1'
-      multiplayer = true
-    when '2'
-      multiplayer = false
-    else
-      puts 'Incorrect Input: Option does not exist'
-    end
+    multiplayer = multiplayer == '1'
     print 'Game last played date: '
     last_played_date = gets.chomp
-
     newgame = Game.new(name, published_date, multiplayer, last_played_date)
     @gamelist.push(newgame)
     author_handler(newgame)
@@ -164,6 +156,6 @@ class App
     last_name = gets.chomp
     author = Author.new(first_name, last_name)
     @authorlist.push(author)
-    author    
-  end  
+    author
+  end
 end
