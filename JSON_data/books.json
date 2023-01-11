@@ -10,13 +10,14 @@
     "archived": false
   },
   {
-    "name": "b1",
-    "publisher": "p1",
+    "name": "dfsffds",
+    "publisher": "fdfdfads",
     "cover_state": "good",
-    "label": 23,
-    "published_date": "1111-11-11",
-    "author": 799,
-    "id": 493,
+    "label": 694,
+    "published_date": "2000-01-01",
+    "genre": 658,
+    "author": 38,
+    "id": 275,
     "archived": false
   }
 ]

@@ -22,8 +22,9 @@ module GamesData
 
       label = game.label.id || nil
       author = game.author.id || nil
+      genre = game.genre.id || nil
       array.push({ name: game.name, published_date: game.published_date, last_played_date: game.last_played_date,
-                   author: author, label: label, id: game.id, archived: game.archived })
+                   author: author, label: label, genre: genre, id: game.id, archived: game.archived })
     end
     write_json(array, './JSON_data/games.json')
   end
@@ -33,11 +34,13 @@ module GamesData
     parse_file.each do |game|
       correctlabel = @labellist.find { |label| label.id == game['label'] }
       correctauthor = @authorlist.find { |author| author.id == game['author'] }
+      correctgenre = @genrelist.find { |genre| genre.id == game['genre'] }
       loadedgame = Game.new(game['name'], game['published_date'], game['multiplayer'],
                             game['last_played_date'], id: game['id'], archived: game['archived'])
       @gamelist.push(loadedgame)
       loadedgame.add_label(correctlabel)
       loadedgame.add_author(correctauthor)
+      loadedgame.add_genre(correctgenre)
     end
   end
 end

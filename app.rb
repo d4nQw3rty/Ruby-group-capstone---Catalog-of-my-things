@@ -1,18 +1,26 @@
 require_relative 'book'
+require_relative 'game'
+require_relative 'author'
 require_relative 'label'
+require_relative 'musicalbum'
+require_relative 'genre'
+require_relative 'genresdata'
 require_relative 'booksdata'
 require_relative 'labelhandler'
 require_relative 'labelsdata'
-require_relative 'game'
-require_relative 'author'
+require_relative 'genrehandler'
+require_relative 'musicdata'
 require_relative 'gamesdata'
 require_relative 'authordata'
 require_relative 'authorhandler'
 
+# rubocop:disable Metrics/ClassLength
 class App
   def initialize
     @booklist = []
     @labellist = []
+    @musiclist = []
+    @genrelist = []
     @authorlist = []
     @gamelist = []
   end
@@ -20,20 +28,27 @@ class App
   include BooksData
   include LabelHandler
   include LabelsData
+  include GenreHandler
+  include GenresData
+  include MusicData
   include AuthorHandler
   include AuthorsData
   include GamesData
 
   def load_data
+    load_genres
     load_labels
     load_authors
     load_books
+    load_musicalbums
     load_games
   end
 
   def save_data
     save_books
     save_labels
+    save_music
+    save_genres
     save_authors
     save_games
   end
@@ -83,6 +98,32 @@ class App
     end
   end
 
+  def list_musicalbums
+    @musiclist.each_with_index do |music, index|
+      genre = if music.genre.nil?
+                'none'
+              else
+                music.genre.name
+              end
+      puts "#{index}) Name: \"#{music.name}\", Genre: #{genre}," \
+           "Publish Date: #{music.published_date}, Archived: #{music.archived}"
+    end
+  end
+
+  def list_genres
+    @genrelist.each_with_index do |genre, index|
+      puts "#{index + 1}) Name: \"#{genre.name}\", Items: #{genre.items.length}"
+    end
+  end
+
+  def create_genre
+    puts 'Insert Label Name: '
+    name = gets.chomp
+    genre = Genre.new(name)
+    @genrelist.push(genre)
+    genre
+  end
+
   def list_games
     @gamelist.each_with_index do |game, index|
       label = game.label.title || 'None'
@@ -119,6 +160,7 @@ class App
     @booklist.push(newbook)
     author_handler(newbook)
     label_handler(newbook)
+    genre_handler(newbook)
     puts 'Book added successfully'
   end
 
@@ -129,6 +171,7 @@ class App
     color = gets.chomp
     label = Label.new(title, color)
     @labellist.push(label)
+    label
   end
 
   def add_game
@@ -145,6 +188,7 @@ class App
     @gamelist.push(newgame)
     author_handler(newgame)
     label_handler(newgame)
+    genre_handler(newgame)
     puts 'Game added successfully'
   end
 
@@ -155,5 +199,23 @@ class App
     last_name = gets.chomp
     author = Author.new(first_name, last_name)
     @authorlist.push(author)
+    author
+  end
+
+  def add_musicalbum
+    print 'Name:'
+    name = gets.chomp
+    print 'Publish date(YYYY-MM-DD):'
+    published_date = gets.chomp
+    print 'Is it on sportify: (Y/N)'
+    on_spotify = gets.chomp
+    on_spotify = on_spotify.downcase == 'y'
+    newsong = MusicAlbum.new(name, published_date, on_spotify: on_spotify)
+    @musiclist.push(newsong)
+    author_handler(newsong)
+    label_handler(newsong)
+    genre_handler(newsong)
+    puts 'Music Album added successfully'
   end
 end
+# rubocop:enable Metrics/ClassLength
