@@ -12,7 +12,7 @@ class Item
 
   attr_reader :id, :name, :published_date, :archived
 
-  attr_accessor :label, :genre
+  attr_accessor :label, :genre, :author
 
   def can_be_archived?
     difference = Date.today - DateTime.parse(@published_date)

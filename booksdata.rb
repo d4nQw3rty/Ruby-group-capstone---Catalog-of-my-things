@@ -20,17 +20,10 @@ module BooksData
     @booklist.each do |book|
       next if list_id.include?(book.id)
 
-      if book.label.nil?
-        array.push(
-          { name: book.name, publisher: book.publisher, cover_state: book.cover_state,
-            published_date: book.published_date, label: book.label.id, id: book.id, archived: book.archived }
-        )
-      else
-        array.push(
-          { name: book.name, publisher: book.publisher, cover_state: book.cover_state,
-            published_date: book.published_date, label: nil, id: book.id, archived: book.archived }
-        )
-      end
+      label = book.label.id || nil
+      author = book.author.id || nil
+      array.push({ name: book.name, publisher: book.publisher, cover_state: book.cover_state, label: label,
+                   published_date: book.published_date, author: author, id: book.id, archived: book.archived })
     end
     write_json(array, './JSON_data/books.json')
   end
@@ -39,10 +32,12 @@ module BooksData
     parse_file = read_json('./JSON_data/books.json')
     parse_file.each do |book|
       correctlabel = @labellist.find { |label| label.id == book['label'] }
+      correctauthor = @authorlist.find { |author| author.id == book['author'] }
       loadedbook = Book.new(book['name'], book['publisher'], book['cover_state'], book['published_date'],
                             id: book['id'], archived: book['archived'])
       @booklist.push(loadedbook)
       loadedbook.add_label(correctlabel)
+      loadedbook.add_author(correctauthor)
     end
   end
 end
