@@ -38,6 +38,34 @@ class App
     save_games
   end
 
+  def add_objects(option)
+    case option
+    when '6'
+      add_book
+    when '7'
+      add_musicalbum
+    when '8'
+      add_game
+    end
+  end
+
+  def list_objects(option)
+    case option
+    when '0'
+      list_books
+    when '1'
+      list_musicalbums
+    when '2'
+      list_games
+    when '3'
+      list_genres
+    when '4'
+      list_authors
+    when '5'
+      list_labels
+    end
+  end
+
   def list_books
     @booklist.each_with_index do |book, index|
       label = if book.label.nil?
