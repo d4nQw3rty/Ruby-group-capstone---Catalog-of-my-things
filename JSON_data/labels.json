@@ -1,17 +1,12 @@
 [
   {
-    "title": "LABEL1",
-    "color": "BLACK",
-    "id": 493
+    "title": "label",
+    "color": "label",
+    "id": 23
   },
   {
-    "title": "newlabel",
-    "color": "blue",
-    "id": 280
-  },
-  {
-    "title": "newlabel2",
-    "color": "green",
-    "id": 947
+    "title": "neolabel",
+    "color": "any",
+    "id": 210
   }
 ]

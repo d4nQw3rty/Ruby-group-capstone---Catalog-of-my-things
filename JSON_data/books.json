@@ -1,65 +1,22 @@
 [
   {
-    "name": "sdsgd",
-    "publisher": "jdsjfg",
+    "name": "title",
+    "publisher": "publisher",
     "cover_state": "good",
+    "label": 23,
     "published_date": "2000-01-01",
-    "label": null,
-    "id": 924,
+    "author": 799,
+    "id": 789,
     "archived": false
   },
   {
-    "name": "gdsga",
-    "publisher": "eaffae",
+    "name": "b1",
+    "publisher": "p1",
     "cover_state": "good",
-    "published_date": "2000-01-01",
-    "label": null,
-    "id": 257,
-    "archived": false
-  },
-  {
-    "name": "LABELED",
-    "publisher": "LABELER",
-    "cover_state": "good",
-    "published_date": "2023-01-10",
-    "label": 493,
-    "id": 991,
-    "archived": false
-  },
-  {
-    "name": "labeled2",
-    "publisher": "labeler",
-    "cover_state": "bad",
-    "published_date": "2000-01-01",
-    "label": 493,
-    "id": 206,
-    "archived": false
-  },
-  {
-    "name": "book",
-    "publisher": "fadafs",
-    "cover_state": "bad",
-    "published_date": "2000-01-01",
-    "label": 280,
-    "id": 856,
-    "archived": false
-  },
-  {
-    "name": "hafdhfd",
-    "publisher": "fdaafd",
-    "cover_state": "good",
-    "published_date": "2000-01-01",
-    "label": null,
-    "id": 399,
-    "archived": false
-  },
-  {
-    "name": "ggagasd",
-    "publisher": "fsfa",
-    "cover_state": "bad",
-    "published_date": "2000-01-02",
-    "label": 947,
-    "id": 509,
+    "label": 23,
+    "published_date": "1111-11-11",
+    "author": 799,
+    "id": 493,
     "archived": false
   }
 ]
