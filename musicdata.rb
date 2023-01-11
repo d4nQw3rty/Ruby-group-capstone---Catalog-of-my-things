@@ -23,7 +23,7 @@ module MusicData
       label = music.label.id || nil
       author = music.author.id || nil
       genre = music.genre.id || nil
-      array.push({ name: music.name, published_date: music.published_date, Archived: music.archived, 
+      array.push({ name: music.name, published_date: music.published_date, Archived: music.archived,
                    genre: genre, author: author, label: label })
     end
     write_json(array, './JSON_data/music_album.json')

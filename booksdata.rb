@@ -35,7 +35,7 @@ module BooksData
     parse_file.each do |book|
       correctlabel = @labellist.find { |label| label.id == book['label'] }
       correctauthor = @authorlist.find { |author| author.id == book['author'] }
-      correctgenre = @genrelist.find { |genre| genre.id == book['genre']}
+      correctgenre = @genrelist.find { |genre| genre.id == book['genre'] }
       loadedbook = Book.new(book['name'], book['publisher'], book['cover_state'], book['published_date'],
                             id: book['id'], archived: book['archived'])
       @booklist.push(loadedbook)

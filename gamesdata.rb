@@ -34,7 +34,7 @@ module GamesData
     parse_file.each do |game|
       correctlabel = @labellist.find { |label| label.id == game['label'] }
       correctauthor = @authorlist.find { |author| author.id == game['author'] }
-      correctgenre = @genrelist.find { |genre| genre.id == game['genre']}
+      correctgenre = @genrelist.find { |genre| genre.id == game['genre'] }
       loadedgame = Game.new(game['name'], game['published_date'], game['multiplayer'],
                             game['last_played_date'], id: game['id'], archived: game['archived'])
       @gamelist.push(loadedgame)
