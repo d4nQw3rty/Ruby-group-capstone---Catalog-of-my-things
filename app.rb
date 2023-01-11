@@ -5,9 +5,11 @@ require_relative 'labelhandler'
 require_relative 'labelsdata'
 require_relative 'game'
 require_relative 'author'
-require_relative 'authorhandler'
-require_relative 'authordata'
 require_relative 'gamesdata'
+require_relative 'authordata'
+require_relative 'authorhandler'
+
+
 
 class App
   def initialize
@@ -128,8 +130,7 @@ class App
     puts 'Insert Label Color: '
     color = gets.chomp
     label = Label.new(title, color)
-    @labellist.push(label)
-    label
+    @labellist.push(label)  
   end
 
   def add_game
@@ -155,7 +156,6 @@ class App
     puts 'Insert Author Last Name: '
     last_name = gets.chomp
     author = Author.new(first_name, last_name)
-    @authorlist.push(author)
-    author
-  end
+    @authorlist.push(author)    
+  end   
 end

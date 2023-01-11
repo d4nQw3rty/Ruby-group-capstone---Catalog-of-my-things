@@ -31,13 +31,13 @@ module GamesData
   def load_games
     parse_file = read_json('./JSON_data/games.json')
     parse_file.each do |game|
-      correctauthor = @authorlist.find { |author| author.id == game['author'] }
       correctlabel = @labellist.find { |label| label.id == game['label'] }
-      loadedgame = Game.new(game['name'], game['published_date'], game['multiplayer'], game['last_played_date'],
-                            id: game['id'], archived: game['archived'])
+      correctauthor = @authorlist.find { |author| author.id == game['author'] }
+      loadedgame = Game.new(game['name'], game['published_date'], game['multiplayer'],
+                            game['last_played_date'], id: game['id'], archived: game['archived'])
       @gamelist.push(loadedgame)
-      loadedgame.add_author(correctauthor)
       loadedgame.add_label(correctlabel)
+      loadedgame.add_author(correctauthor)
     end
   end
 end
