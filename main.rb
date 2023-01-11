@@ -28,20 +28,11 @@ class Main
     option = gets.chomp
     puts ''
     case option
-    when '0'
-      @app.list_books
+    when '0', '1', '2', '3', '4', '5'
+      @app.list_objects(option)
       run
-    when '2'
-      @app.list_games
-      run
-    when '4'
-      @app.list_labels
-      run
-    when '6'
-      @app.add_book
-      run
-    when '8'
-      @app.add_game
+    when '6', '7', '8'
+      @app.add_objects(option)
       run
     when '9'
       @app.save_data
