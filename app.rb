@@ -9,8 +9,6 @@ require_relative 'gamesdata'
 require_relative 'authordata'
 require_relative 'authorhandler'
 
-
-
 class App
   def initialize
     @booklist = []
