@@ -31,11 +31,17 @@ class Main
     when '0'
       @app.list_books
       run
+    when '2'
+      @app.list_games
+      run
     when '4'
       @app.list_labels
       run
     when '6'
       @app.add_book
+      run
+    when '8'
+      @app.add_game
       run
     when '9'
       @app.save_data
