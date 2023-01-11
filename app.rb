@@ -89,7 +89,9 @@ class App
     end
     newbook = Book.new(title, publisher, cover, published_date)
     @booklist.push(newbook)
+    author_handler(newbook)
     label_handler(newbook)
+    puts 'Book added successfully'
   end
 
   def create_label
@@ -122,7 +124,9 @@ class App
 
     newgame = Game.new(name, published_date, multiplayer, last_played_date)
     @gamelist.push(newgame)
-    author_handler(newgame)    
+    author_handler(newgame)
+    label_handler(newgame)
+    puts 'Game added successfully'
   end
 
   def create_author

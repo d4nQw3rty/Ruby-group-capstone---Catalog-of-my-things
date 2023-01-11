@@ -19,18 +19,10 @@ module GamesData
     array.each { |game| list_id.push(game['id']) }
     @gamelist.each do |game|
       next if list_id.include?(game.id)
-
-      if game.author.nil?
-        array.push(
-          { name:game.name, published_date: game.published_date, last_played_date: game.last_played_date,
-          author: nil, id: game.id, archived: game.archived }
-        )
-      else
-        array.push(
-          { name: game.name, published_date: game.published_date, last_played_date: game.last_played_date,
-          author: game.author.id, id: game.id, archived: game.archived }
-        )
-      end
+      label = game.label.id || nil
+      author = game.author.id || nil
+      array.push({ name:game.name, published_date: game.published_date, last_played_date: game.last_played_date,
+          author: author, label: label, id: game.id, archived: game.archived })
     end
     write_json(array, './JSON_data/games.json')
   end
@@ -39,10 +31,12 @@ module GamesData
     parse_file = read_json('./JSON_data/games.json')
     parse_file.each do |game|
       correctauthor = @authorlist.find { |author| author.id == game['author'] }
+      correctlabel = @labellist.find { |label| label.id == game['label'] }
       loadedgame =Game.new(game['name'], game['published_date'], game['last_played_date'],
                             id: game['id'], archived: game['archived'])
       @gamelist.push(loadedgame)
       loadedgame.add_author(correctauthor)
+      loadedgame.add_label(correctlabel)
     end
   end
 end

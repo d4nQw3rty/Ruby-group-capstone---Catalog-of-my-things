@@ -1,7 +1,7 @@
 require_relative 'author'
 
 module AuthorHandler
-  def author_handler(game)
+  def author_handler(item)
     puts 'Would you like to add an author to this item? (Y/N)'
     answer = gets.chomp
     unless answer.downcase == 'n'
@@ -10,11 +10,11 @@ module AuthorHandler
       response = gets.chomp.to_i
       if response.zero?
         newauthor = create_author
-        game.add_author(newauthor)
+        item.add_author(newauthor)
       else
-        game.add_author(@authorlist[response - 1])
+        item.add_author(@authorlist[response - 1])
       end
     end
-    puts 'Gamme added successfully'
+    puts 'Author added successfully'
   end
 end
