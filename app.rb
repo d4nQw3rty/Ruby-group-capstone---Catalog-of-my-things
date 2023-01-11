@@ -3,25 +3,39 @@ require_relative 'label'
 require_relative 'booksdata'
 require_relative 'labelhandler'
 require_relative 'labelsdata'
+require_relative 'game'
+require_relative 'author'
+require_relative 'authorhandler'
+require_relative 'authordata'
+require_relative 'gamesdata'
 
 class App
   def initialize
     @booklist = []
     @labellist = []
+    @authorlist = []
+    @gamelist = []
   end
 
   include BooksData
   include LabelHandler
   include LabelsData
+  include AuthorHandler 
+  include AuthorsData
+  include GamesData  
 
   def load_data
     load_labels
     load_books
+    load_authors
+    load_games    
   end
 
   def save_data
     save_books
     save_labels
+    save_authors
+    save_games
   end
 
   def list_books
@@ -40,6 +54,19 @@ class App
   def list_labels
     @labellist.each_with_index do |label, index|
       puts "#{index + 1}) Title: \"#{label.title}\", Color: #{label.color}, Items: #{label.items.length}"
+    end
+  end
+
+  def list_games
+    @gamelist.each_with_index do |game, index|
+      puts "#{index + 1}) Title: \"#{game.name}\", Published: #{game.published_date}, " \
+           "Multiplayer: #{game.multiplayer}, Last Date: #{game.last_played_date}"
+    end
+  end
+
+  def list_authors
+    @authorlist.each_with_index do |author, index|
+      puts "#{index + 1}) First Name: \"#{author.first_name}\", Last Mame: #{author.last_name}, Items: #{author.items.length}"
     end
   end
 
@@ -73,5 +100,38 @@ class App
     label = Label.new(title, color)
     @labellist.push(label)
     label
+  end 
+
+  def add_game
+    print 'Game Title: '
+    name = gets.chomp
+    print 'Game Published Date: '
+    published_date = gets.chomp
+    print 'is a multiplayer game? Answer with 1(yes) or 2(no)? '
+    multiplayer = gets.chomp
+    case multiplayer
+    when '1'
+      multiplayer = true
+    when '2'
+      multiplayer = false
+    else
+      puts 'Incorrect Input: Option does not exist'
+    end
+    print 'Game last played date: '
+    last_played_date = gets.chomp
+
+    newgame = Game.new(name, published_date, multiplayer, last_played_date)
+    @gamelist.push(newgame)
+    author_handler(newgame)    
   end
+
+  def create_author
+    puts 'Insert Author First Name: '
+    first_name = gets.chomp
+    puts 'Insert Author Last Name: '
+    last_name = gets.chomp
+    author = Author.new(first_name, last_name)
+    @authorlist.push(author)
+    author    
+  end  
 end
