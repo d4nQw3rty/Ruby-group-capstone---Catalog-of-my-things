@@ -130,7 +130,7 @@ class App
     puts 'Insert Label Color: '
     color = gets.chomp
     label = Label.new(title, color)
-    @labellist.push(label)  
+    @labellist.push(label)
   end
 
   def add_game
@@ -156,6 +156,6 @@ class App
     puts 'Insert Author Last Name: '
     last_name = gets.chomp
     author = Author.new(first_name, last_name)
-    @authorlist.push(author)    
-  end   
+    @authorlist.push(author)
+  end
 end
